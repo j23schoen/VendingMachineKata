@@ -52,5 +52,44 @@ describe("Vending Machine", function(){
         });
     });
 
+    describe("return added coins to coin return", function () {
+        it("will set the coins added to empty and will return coins", function() {
+            vend.insertCoins(Money.Quarter);
+            vend.insertCoins(Money.Nickel);
+            vend.returnCoins();
+            expect(vend.display).toEqual("insert coins");
+            expect(vend.coinReturn).toContain(Money.Nickel, Money.Quarter);
+        });
+    });
+
+    describe("inventory", function(){
+        it("will give the inventory of product", function(){
+            vend.addInventory(Product.Candy, 5);
+            vend.addInventory(Product.Chips, 10);
+            expect(vend.getInventory(Product.Candy)).toEqual(5);
+            expect(vend.getInventory(Product.Chips)).toEqual(10);
+        });
+    });
+
+    describe("can buy products", function(){
+
+        beforeEach(function(){
+            vend.addInventory(Product.Chips, 10);
+            vend.addInventory(Product.Cola, 1);
+            vend.addInventory(Product.Candy, 10);
+        });
+
+        it("allows a user to buy a product", function () {
+            vend.insertCoins(Money.Quarter);
+            vend.insertCoins(Money.Quarter);
+            vend.insertCoins(Money.Dime);
+            vend.insertCoins(Money.Dime);
+            vend.insertCoins(Money.Quarter);
+            vend.vendProduct(Product.Cola);
+            expect(vend.itemBin).toContain(Product.Cola);
+            expect(vend.display).toBe("insert coins");
+        });
+    });
+
 
 });

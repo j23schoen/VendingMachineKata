@@ -21,6 +21,7 @@
      this.inventory = this.products.map(function() {
          return 0;
      });
+     this.itemBin = [];
 
      this.insertCoins = function (coin) {
          var coinIndex = this.coinsAccepted.indexOf(coin);
@@ -33,6 +34,12 @@
          this.updateDisplay();
 
      };
+
+     this.returnCoins = function () {
+         this.coinReturn = this.coinsAdded;
+         this.coinsAdded = [];
+         this.updateDisplay();
+     }
 
      this.updateDisplay = function () {
          this.findTotal();
@@ -58,15 +65,40 @@
      this.addInventory = function (product, number) {
          var index = this.products.indexOf(product);
          if(index > -1){
+             if(number == null){
+                 number = 1;
+             }
             this.inventory[index] = this.inventory[index] + number;
          }
      };
 
      this.getInventory = function (product) {
          var index = this.products.indexOf(product);
+         if(index > -1){
+             return this.inventory[index];
+         }
+         else{
+             return 0;
+         }
+     };
 
-     }
+     this.purchaseProduct = function (product) {
+         this.amountOfMoneyInserted = this.amountOfMoneyInserted - Product.cost;
+         this.coinsAdded = [];
+     };
 
+     this.vendProduct = function(product) {
+         var index = this.products.indexOf(product);
+         if (index > -1) {
+             this.purchaseProduct(product);
+
+             this.inventory[index]--;
+
+             this.itemBin.push(product);
+
+             this.updateDisplay();
+         }
+     };
 
 
 
