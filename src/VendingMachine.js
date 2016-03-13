@@ -1,14 +1,15 @@
  var Money = {
      Nickel: {name: "Nickel", value: 0.05},
      Dime: {name: "Dime", value: 0.10},
-     Quarter: {name: "Quarter", value: 0.25}
- }
+     Quarter: {name: "Quarter", value: 0.25},
+     Penny: {name: "Penny", value: 0.01}
+ };
 
- var Products = {
-     Cola: {name: "Cola", value: 1.00},
-     Chips: {name: "Chips", value: 0.50},
-     Candy: {name: "Candy", value: 0.65}
- }
+ var Product = {
+     Cola: {name: "Cola", cost: 1.00},
+     Chips: {name: "Chips", cost: 0.50},
+     Candy: {name: "Candy", cost: 0.65}
+ };
 
  function VendingMachine() {
      this.display = "insert coins";
@@ -16,7 +17,10 @@
      this.coinsAdded = [];
      this.coinReturn = [];
      this.amountOfMoneyInserted = 0;
-
+     this.products = [Product.Cola, Product.Chips, Product.Candy];
+     this.inventory = this.products.map(function() {
+         return 0;
+     });
 
      this.insertCoins = function (coin) {
          var coinIndex = this.coinsAccepted.indexOf(coin);
@@ -50,5 +54,20 @@
          }
          this.amountOfMoneyInserted = total;
      };
+
+     this.addInventory = function (product, number) {
+         var index = this.products.indexOf(product);
+         if(index > -1){
+            this.inventory[index] = this.inventory[index] + number;
+         }
+     };
+
+     this.getInventory = function (product) {
+         var index = this.products.indexOf(product);
+
+     }
+
+
+
 
  }

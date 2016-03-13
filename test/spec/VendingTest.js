@@ -44,4 +44,13 @@ describe("Vending Machine", function(){
         });
     });
 
+    describe("it will reject invalid coins", function () {
+        it("penny will be rejected", function (){
+            vend.insertCoins(Money.Penny);
+            expect(vend.coinReturn).toContain(Money.Penny);
+            expect(vend.display).toEqual("insert coins");
+        });
+    });
+
+
 });
