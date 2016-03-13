@@ -9,7 +9,7 @@ describe("Vending Machine", function(){
     describe("Construction", function(){
 
         it("displays insert coin when starting up", function(){
-            expect(vendingMachine.display).toEqual("");
+            expect(vendingMachine.display).toEqual("insert coins");
         });
 
     })
